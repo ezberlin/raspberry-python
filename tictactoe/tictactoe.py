@@ -1,7 +1,5 @@
-import os, time, random
+import os, time, random, keyboard
 os.system("clear")
-
-quit = 0
 
 def refresh():
 	os.system("clear")
@@ -61,7 +59,7 @@ def sideWon(side, progress):
 			return True
 	return False
 
-def nearDeath(side, progress):
+def nearDeath(progress, side):
 	x = 1
 	if progress[0] == side:
 		x = x*2
@@ -97,6 +95,58 @@ def nearDeath(side, progress):
 	if len(near_deaths) != 0:
 		return near_deaths
 
+def bot(progress, side, difficulty)
+	occupied = []
+	for spot in range(0, 9):
+		if progress[spot]:
+			occupied.append(spot)
+
+	if difficulty == 0:
+		options = []
+		for spot in range(0, 9):
+			if not spot in occupied:
+				options.append(spot)
+		return random.choice(options)
+
+	else:
+		if nearDeath(progress, side):
+			return random.choice(nearDeath(progress, side))
+		elif nearDeath(progress, 3 -side):
+			return random.choice(nearDeath(progress, 3 -side))
+		else:
+			priority_0 = [4]
+			priority_1 = [0, 2, 6, 8]
+			priority_2 = [1, 3, 5, 7]
+			if 4 in occupied:
+				del priority_0[0]
+			for spot in priority_1:
+				if spot in occupied:
+					del priority_1[priority_1.index(spot)]
+			for spot in priority_2:
+				if spot in occupied:
+					del priority_2[priority_2.index(spot)]
+
+
+			if len(priority_0) != 0:
+					return random.choice(priority_0)
+
+			elif difficulty == 1:
+				if len(priority_2) != 0:
+					return random.choice(priority_2)
+				else:
+					return random.choice(priority_1)
+
+			else:
+				if len(priority_1) != 0:
+					return random.choice(priority_1)
+				else:
+					return random.choice(priority_2)
+#keyboard.is_pressed(key)
+#keyboard.wait(key)
+
+quit = 0
+cursor = 4
+
 while True:
 	if quit == 1:
 		refresh()
@@ -115,6 +165,15 @@ while True:
 
 	if home.upper() == "F":
 		refresh()
+		progress = [0,0,0,0,0,0,0,0,0]
+		for turn in range(0, 9):
+			done = False
+			while done = False
+				refresh()
+				draw(progress)
+				if turn % 2 == 0:
+					print("It's X's turn. Choose the right square with the arrow keys and press Enter.")
+					
 
 	if home.upper() == "B":
 		refresh()
