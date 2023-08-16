@@ -29,11 +29,11 @@ def drawBoard(progress=[0,0,0,0,0,0,0,0,0], cursor=None):
 def isValidMove(move, progress):
 	if move in ["1","2","3","4","5',"6","7',"8","9"]:
 		if not progress[int(move - 1)]:
-			return 1
+			return True
 		else:
-			return 0
+			return True
 	else:
-		return 0
+		return False
 
 def sideWon(side, progress):
 	x = 1
@@ -52,12 +52,50 @@ def sideWon(side, progress):
 	if progress[6] == side:
 		x = x*17
 	if progress[7] == side:
+		x = x19
+	if progress[8] == side:
+		x = x*23
+
+	for combination in [30, 1001, 7429, 238, 627, 1495, 506, 935]:
+		if x % combination == 0:
+			return True
+	return False
+
+def nearDeath(side, progress):
+	x = 1
+	if progress[0] == side:
+		x = x*2
+	if progress[1] == side:
+		x = x*3
+	if progress[2] == side:
+		x = x*
+	if progress[3] == side:
+		x = x*7
+	if progress[4] == side:
+		x = x*11
+	if progress[5] == side:
+		x = x*13
+	if progress[6] == side:
+		x = x*17
+	if progress[7] == side:
 		x = x*19
 	if progress[8] == side:
 		x = x*23
 
-	if x in [30, 1001]
+	near_death_sheet = {6:2, 10:1, 15:0, 77:5, 91:4, 143:3, 323:8, 391:7, 437:6, 14:6, 34:3, 119:0, 33:7, 57:4, 209:1, 65:8, 115:5, 299:2, 22:8, 46:4, 253:0, 55:6, 85:4, 187:2}
+	near_deaths = []
+	occupied = []
 
+	for spot in range(0, 9):
+		if progress[spot]:
+			occupied.append(spot)
+
+	for near_death in near_death_sheet:
+		if x % near_death == 0 and not near_death_sheet(near_death):
+			near_deaths.append(near_death_sheet[near_death]
+
+	if len(near_deaths) != 0:
+		return near_deaths
 
 while True:
 	if quit == 1:
