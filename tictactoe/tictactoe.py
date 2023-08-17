@@ -1,4 +1,15 @@
-import os, time, random, keyboard
+import os, time, random
+from getkey import getkey, keys
+key = getkey()
+#if key == keys.UP:
+	# Handle the UP key
+#elif key == keys.DOWN:
+	# Handle the DOWN key
+#elif key == 'a':
+	# Handle the `a` key
+#elif key == 'Y':
+	# Handle `shift-y`
+
 os.system("clear")
 
 def refresh():
@@ -25,7 +36,7 @@ def drawBoard(progress=[0,0,0,0,0,0,0,0,0], cursor=None):
 
 
 def isValidMove(move, progress):
-	if move in ["1","2","3","4","5',"6","7',"8","9"]:
+	if move in ["1","2","3","4","5","6","7","8","9"]:
 		if not progress[int(move - 1)]:
 			return True
 		else:
@@ -66,7 +77,7 @@ def nearDeath(progress, side):
 	if progress[1] == side:
 		x = x*3
 	if progress[2] == side:
-		x = x*
+		x = x*5
 	if progress[3] == side:
 		x = x*7
 	if progress[4] == side:
@@ -90,12 +101,12 @@ def nearDeath(progress, side):
 
 	for near_death in near_death_sheet:
 		if x % near_death == 0 and not near_death_sheet(near_death):
-			near_deaths.append(near_death_sheet[near_death]
+			near_deaths.append(near_death_sheet[near_death])
 
-	if len(near_deaths) != 0:
+	if not len(near_deaths) == 0:
 		return near_deaths
 
-def bot(progress, side, difficulty)
+def bot(progress, side, difficulty):
 	occupied = []
 	for spot in range(0, 9):
 		if progress[spot]:
@@ -168,12 +179,37 @@ while True:
 		progress = [0,0,0,0,0,0,0,0,0]
 		for turn in range(0, 9):
 			done = False
-			while done = False
+			ticks = 0
+			while done == False:
 				refresh()
-				draw(progress)
+				if ((ticks - (ticks%10))/10) % 2 == 0:
+					drawBoard(progress, cursor)
+				else:
+					drawBoard(progress)
 				if turn % 2 == 0:
 					print("It's X's turn. Choose the right square with the arrow keys and press Enter.")
-					
+					time.sleep(0.1)
+					if key == keys.UP:
+						if cursor > 2:
+							cursor = cursor-3
+						else:
+							cursor = cursor+6
+					if key == keys.DOWN:
+						if cursor < 6:
+							cursor = cursor+3
+						else:
+							cursor = cursor-6
+					if key == keys.LEFT:
+						if cursor % 3 > 0:
+							cursor = cursor-1
+						else:
+							cursor = cursor+2
+					if key == keys.RIGHT:
+						if cursor % 3 < 2:
+							cursor = cursor+1
+						else:
+							cursor = cursor-2
+
 
 	if home.upper() == "B":
 		refresh()
